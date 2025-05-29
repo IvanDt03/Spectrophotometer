@@ -4,10 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Spectrophotometer"
+        xmlns:vm="clr-namespace:Spectrophotometer.ViewModels"
+        xmlns:model="clr-namespace:Spectrophotometer.Models"
         mc:Ignorable="d"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:oxy="http://oxyplot.org/wpf"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <vm:MainViewModel></vm:MainViewModel>
+    </Window.DataContext>
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -33,11 +39,27 @@
             <TextBlock>Спектрофотометр</TextBlock>
             <StackPanel Orientation="Horizontal">
                 <TextBlock>Выбор смеси мономеров:</TextBlock>
-                <ComboBox></ComboBox>
+                <ComboBox x:Name="cmbMixtures" ItemsSource="{Binding Mixtures}"
+                          SelectedItem="{Binding SelectedMixture}"
+                          DisplayMemberPath="Title"></ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock>Выбор концентрации смеси:</TextBlock>
-                <ComboBox></ComboBox>
+                <ComboBox ItemsSource="{Binding SelectedMixture.ListMonomerMixture}"
+                          SelectedItem="{Binding SelectedUnitMixture}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type model:UnitMonomerMixture}">
+                            <TextBlock>
+                                <Run Text="{Binding NameFirstMonomer}"/>
+                                <Run Text="{Binding VolumeFirstMonomer, StringFormat={}{0:F2}}" Foreground="Red" FontWeight="Bold" FontStyle="Italic"/>
+                                <Run Text="мл;"/>
+                                <Run Text="{Binding NameSecondMonomer}"/>
+                                <Run Text="{Binding VolumeSecondMonomer, StringFormat={}{0:F2}}" Foreground="Red" FontWeight="Bold" FontStyle="Italic"/>
+                                <Run Text="мл;"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </StackPanel>
         </StackPanel>
 

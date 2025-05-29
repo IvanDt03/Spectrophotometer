@@ -23,14 +23,12 @@ public class ExcelDataService : IDataService
             foreach(var ws in wb.Worksheets)
             {
                 string title = ws.Name;
-                string nameFirstMonomer = ws.Cell("D19").GetString();
-                string nameSecondMonomer = ws.Cell("D20").GetString();
                 double lambdaMin = ws.Cell("A25").GetDouble();
                 double lambdaMax = ws.Cell("B25").GetDouble();
                 double lambdaA = ws.Cell("C25").GetDouble();
                 double wFactor = ws.Cell("D25").GetDouble();
 
-                result.Add(new MonomerMixtures(title, lambdaMin, lambdaMax, lambdaA, wFactor, nameFirstMonomer, nameSecondMonomer));
+                result.Add(new MonomerMixtures(title, lambdaMin, lambdaMax, lambdaA, wFactor));
             }
             return LoadResult<List<MonomerMixtures>>.Seccess(result);
         }
@@ -57,11 +55,14 @@ public class ExcelDataService : IDataService
             
             while (!row.FirstCell().IsEmpty())
             {
+                string nameFirstMonomer = ws.Cell("D19").GetString();
+                string nameSecondMonomer = ws.Cell("D20").GetString();
                 double volumeFirst = row.Cell(columnFirstMonomer).GetDouble();
                 double volumeSecond = row.Cell(columnSecondMonomer).GetDouble();
                 double signalFactor = row.Cell(columnSignalFactor).GetDouble();
 
-                result.Add(new UnitMonomerMixture(volumeFirst, volumeSecond, signalFactor));
+                result.Add(new UnitMonomerMixture(nameFirstMonomer, nameSecondMonomer, volumeFirst, volumeSecond, signalFactor));
+                row = row.RowBelow();
             }
 
             return LoadResult<List<UnitMonomerMixture>>.Seccess(result);

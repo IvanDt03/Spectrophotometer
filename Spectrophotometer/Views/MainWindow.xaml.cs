@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Spectrophotometer.ViewModels;
+using System.Windows;
 
 namespace Spectrophotometer.Views;
 
