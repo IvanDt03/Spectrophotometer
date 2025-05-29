@@ -5,6 +5,6 @@ namespace Spectrophotometer.Service;
 
 public interface IDataService
 {
-    LoadResult<List<MonomerMixtures>> LoadMixtures();
-    LoadResult<List<UnitMonomerMixture>> LoadUnitMixture(string title);
+    LoadResult<List<MixtureMonomers>> LoadMixtures();
+    LoadResult<List<RatioMonomers>> LoadUnitMixture(MixtureMonomers mixture);
 }

@@ -2,18 +2,16 @@
 
 namespace Spectrophotometer.Models;
 
-public class UnitMonomerMixture : Notifier
+public class RatioMonomers : Notifier
 {
-    private string _nameFirstMonomer;
-    private string _nameSecondMonomer;
     private double _volumeFirstMonomer;
     private double _volumeSecondMonomer;
     private double _signalFactor;
+    private MixtureMonomers _mixture;
 
-    public UnitMonomerMixture(string nameFirstMonomer, string nameSecondMonomer, double volumeFirst, double volumesecond, double signalFactor)
+    public RatioMonomers(MixtureMonomers mixture, double volumeFirst, double volumesecond, double signalFactor)
     {
-        _nameFirstMonomer = nameFirstMonomer;
-        _nameSecondMonomer = nameSecondMonomer;
+        _mixture = mixture;
         _volumeFirstMonomer = volumeFirst;
         _volumeSecondMonomer = volumesecond;
         _signalFactor = signalFactor;
@@ -37,15 +35,8 @@ public class UnitMonomerMixture : Notifier
         set { SetValue(ref _signalFactor, value, nameof(_signalFactor)); }
     }
 
-    public string NameFirstMonomer
+    public MixtureMonomers Mixture
     {
-        get { return _nameFirstMonomer; }
-        set { SetValue(ref _nameFirstMonomer, value, nameof(_nameFirstMonomer)); }
-    }
-
-    public string NameSecondMonomer
-    {
-        get { return _nameSecondMonomer; }
-        set { SetValue(ref _nameSecondMonomer, value, nameof(NameSecondMonomer)); }
+        get { return _mixture; }
     }
 }

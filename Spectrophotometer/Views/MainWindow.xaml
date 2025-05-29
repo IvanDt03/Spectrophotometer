@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
         Title="MainWindow" Height="450" Width="800">
 
     <Window.DataContext>
@@ -46,14 +47,14 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock>Выбор концентрации смеси:</TextBlock>
                 <ComboBox ItemsSource="{Binding SelectedMixture.ListMonomerMixture}"
-                          SelectedItem="{Binding SelectedUnitMixture}">
+                          SelectedItem="{Binding SelectedRatio}">
                     <ComboBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type model:UnitMonomerMixture}">
+                        <DataTemplate DataType="{x:Type model:RatioMonomers}">
                             <TextBlock>
-                                <Run Text="{Binding NameFirstMonomer}"/>
+                                <Run Text="{Binding Mixture.NameFirstMonomer}"/>
                                 <Run Text="{Binding VolumeFirstMonomer, StringFormat={}{0:F2}}" Foreground="Red" FontWeight="Bold" FontStyle="Italic"/>
                                 <Run Text="мл;"/>
-                                <Run Text="{Binding NameSecondMonomer}"/>
+                                <Run Text="{Binding Mixture.NameSecondMonomer}"/>
                                 <Run Text="{Binding VolumeSecondMonomer, StringFormat={}{0:F2}}" Foreground="Red" FontWeight="Bold" FontStyle="Italic"/>
                                 <Run Text="мл;"/>
                             </TextBlock>
@@ -61,10 +62,13 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
+            
         </StackPanel>
 
         <TabControl Grid.Row="1" Grid.Column="0">
-            <TabItem Header="График"></TabItem>
+            <TabItem Header="График">
+                <lvc:CartesianChart></lvc:CartesianChart>
+            </TabItem>
             <TabItem Header="Градуировочный график"></TabItem>
         </TabControl>
     </Grid>

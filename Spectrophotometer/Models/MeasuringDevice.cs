@@ -11,8 +11,8 @@ public class MeasuringDevice : Notifier
     private bool _isRunning;
     private double _currentMinLambdaUI;
     private double _currentMaxLambdaUI;
-    private MonomerMixtures? _monomerMixturesSelected;
-    private int _indexSelectedUnit;
+    private MixtureMonomers? _currentMixture;
+    private RatioMonomers? _currentRatio;
 
     public MeasuringDevice()
     {
@@ -20,7 +20,7 @@ public class MeasuringDevice : Notifier
         _timer.Interval = TimeSpan.FromMicroseconds(50);
         _timer.Tick += OnStartMeasurement;
         _isRunning = false;
-        _monomerMixturesSelected = null;
+        _currentMixture = null;
     }
 
     private void OnStartMeasurement(object? sender, EventArgs e)
@@ -32,20 +32,23 @@ public class MeasuringDevice : Notifier
         }
 
         var lambda = ++_currentMinLambdaUI;
-        var signal = A_Factor * Math.Pow(1 + Math.Pow(lambda - _monomerMixturesSelected.LambdaA, 2) / Math.Pow(_monomerMixturesSelected.WFactor, 2), -1);
+        var signal = A_Factor * Math.Pow(1 + Math.Pow(lambda - _currentMixture.LambdaA, 2) / Math.Pow(_currentMixture.WFactor, 2), -1);
 
         CurrentPoint = new DataPoint(lambda, signal);
     }
 
-    public void StartMeasurement(double minLambda, double maxLambda,  MonomerMixtures selected, int indexSelectedUnit)
+    public void StartMeasurement(double minLambda, double maxLambda,  MixtureMonomers selected, RatioMonomers ratio)
     {
-        if (IsRunning || selected == null)
+        if (IsRunning)
+            return;
+
+        if (selected is null || ratio is null)
             return;
 
         _currentMinLambdaUI = minLambda;
         _currentMaxLambdaUI = maxLambda;
-        _monomerMixturesSelected = selected;
-        _indexSelectedUnit = indexSelectedUnit;
+        _currentMixture = selected;
+        _currentRatio = ratio;
 
         IsRunning = true;
         _timer.Start();
@@ -67,14 +70,14 @@ public class MeasuringDevice : Notifier
     {
         get 
         { 
-            return Math.Pow(Math.Pow(_monomerMixturesSelected.LambdaA - _monomerMixturesSelected.LambdaMin, 2) / Math.Pow(_monomerMixturesSelected.WFactor, 2) + 1, -1); 
+            return Math.Pow(Math.Pow(_currentMixture.LambdaA - _currentMixture.LambdaMin, 2) / Math.Pow(_currentMixture.WFactor, 2) + 1, -1); 
         }
     }
     private double ValueBack_2
     {
         get 
         { 
-            return Math.Pow(Math.Pow(_monomerMixturesSelected.LambdaA - _monomerMixturesSelected.LambdaMax, 2) / Math.Pow(_monomerMixturesSelected.WFactor, 2) + 1, -1); 
+            return Math.Pow(Math.Pow(_currentMixture.LambdaA - _currentMixture.LambdaMax, 2) / Math.Pow(_currentMixture.WFactor, 2) + 1, -1); 
         }
     }
     private double Shift
@@ -83,6 +86,6 @@ public class MeasuringDevice : Notifier
     }
     private double A_Factor
     {
-        get { return _monomerMixturesSelected[_indexSelectedUnit].SignalFactor / (1 - Shift); }
+        get { return _currentRatio.SignalFactor / (1 - Shift); }
     }
 }
