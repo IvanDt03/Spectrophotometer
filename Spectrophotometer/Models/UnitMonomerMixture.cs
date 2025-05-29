@@ -8,10 +8,10 @@ public class UnitMonomerMixture : Notifier
     private double _volumeSecondMonomer;
     private double _signalFactor;
 
-    public UnitMonomerMixture(double volumeStyrene, double volumeMMA, double signalFactor)
+    public UnitMonomerMixture(double volumeFirst, double volumesecond, double signalFactor)
     {
-        _volumeFirstMonomer = volumeStyrene;
-        _volumeSecondMonomer = volumeMMA;
+        _volumeFirstMonomer = volumeFirst;
+        _volumeSecondMonomer = volumesecond;
         _signalFactor = signalFactor;
     }
 
