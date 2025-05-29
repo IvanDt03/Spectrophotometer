@@ -28,7 +28,22 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        
-        
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <TextBlock>Спектрофотометр</TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>Выбор смеси мономеров:</TextBlock>
+                <ComboBox></ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>Выбор концентрации смеси:</TextBlock>
+                <ComboBox></ComboBox>
+            </StackPanel>
+        </StackPanel>
+
+        <TabControl Grid.Row="1" Grid.Column="0">
+            <TabItem Header="График"></TabItem>
+            <TabItem Header="Градуировочный график"></TabItem>
+        </TabControl>
     </Grid>
 </Window>
