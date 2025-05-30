@@ -1,0 +1,3 @@
+[submodule "SynthCustomControls"]
+	path = SynthCustomControls
+	url = git@github.com:BertyBasset/SynthCustomControls.git
