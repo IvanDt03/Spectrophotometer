@@ -4,9 +4,48 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Spectrophotometer.Views"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:vm="clr-namespace:Spectrophotometer.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             d:DesignHeight="500" d:DesignWidth="800" d:DataContext="{d:DesignInstance {x:Type vm:MainViewModel}}">
+   
+    <Viewbox>
+        <Canvas Width="600" Height="450" Background="White">
+            <Path Fill="LightGray" Stroke="DarkGray" StrokeThickness="4">
+                <Path.Data>
+                    <GeometryGroup FillRule="Nonzero">
+                        <RectangleGeometry Rect="50,200,500,200" RadiusX="5" RadiusY="5"/>
+                        <RectangleGeometry Rect="225,200,150,100" RadiusX="20" RadiusY="20"/>
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+            <Rectangle Canvas.Left="280" Canvas.Top="292.5" Fill="DarkGray" Width="40" Height="15" RadiusX="7" RadiusY="7"/>
+            <Rectangle Canvas.Left="100" Canvas.Top="400" Fill="DarkGray" Width="100" Height="25" RadiusX="5" RadiusY="5"/>
+            <Rectangle Canvas.Left="400" Canvas.Top="400" Fill="DarkGray" Width="100" Height="25" RadiusX="5" RadiusY="5"/>
+            <Path Fill="LightGray" Stroke="DarkGray" StrokeThickness="4">
+                <Path.Data>
+                    <GeometryGroup>
+                        <RectangleGeometry Rect="150,50,300,150" RadiusX="5" RadiusY="5"/>
+                        <RectangleGeometry Rect="175,70,250,110" RadiusX="5" RadiusY="5"/>
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+            <Border Canvas.Left="176" Canvas.Top="71" Width="248" Height="108" Background="DarkSeaGreen" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <oxy:PlotView Margin="3" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"></oxy:PlotView>
+                    <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource BtnEllipseStyle}" Background="LightGreen">Запуск</Button>
+                    <Button Grid.Column="1" Grid.Row="2" Style="{StaticResource BtnEllipseStyle}" Background="IndianRed">Сброс</Button>
+                </Grid>
+            </Border>
+        </Canvas>
+    </Viewbox>
 </UserControl>

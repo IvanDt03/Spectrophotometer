@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:Spectrophotometer"
         xmlns:vm="clr-namespace:Spectrophotometer.ViewModels"
         xmlns:model="clr-namespace:Spectrophotometer.Models"
+        xmlns:view="clr-namespace:Spectrophotometer.Views"
         mc:Ignorable="d"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="800">
 
     <Window.DataContext>
         <vm:MainViewModel></vm:MainViewModel>
@@ -63,7 +64,7 @@
                 </ComboBox>
                 <hc:ProgressButton Content="Загрузить в устройство"></hc:ProgressButton>
             </StackPanel>
-            
+            <view:Device></view:Device>
         </StackPanel>
 
         <TabControl Grid.Row="1" Grid.Column="0">
