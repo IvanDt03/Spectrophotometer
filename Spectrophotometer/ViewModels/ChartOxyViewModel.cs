@@ -22,18 +22,38 @@ public class ChartOxyViewModel : Notifier
 
         _xAxis = new LinearAxis
         {
-            Title = "Длина волны, нм",
+            //Title = "Длина волны, нм",
             Position = AxisPosition.Bottom,
+            FontSize = 6,
         };
 
         _yAxis = new LinearAxis
         {
-            Title = "Сигнал",
+            //Title = "Сигнал",
             Position = AxisPosition.Left,
+            FontSize = 6,
         };
 
         _model.Series.Add(_series);
         _model.Axes.Add(_xAxis);
         _model.Axes.Add(_yAxis);
+    }
+
+    public PlotModel Model
+    {
+        get { return _model; }
+        set { SetValue(ref _model, value, nameof(Model)); }
+    }
+
+    public void AddPoint(Spectrophotometer.Models.DataPoint point)
+    {
+        _series.Points.Add(new DataPoint(point.Lambda, point.Signal));
+        _model.InvalidatePlot(true);
+    }
+
+    public void ResetChart()
+    {
+        _series.Points.Clear();
+        _model.InvalidatePlot(true);
     }
 }

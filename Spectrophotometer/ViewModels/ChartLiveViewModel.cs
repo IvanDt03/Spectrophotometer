@@ -66,4 +66,9 @@ public class ChartLiveViewModel : Notifier
     {
         _data.Add(point);
     }
+
+    public void ResetChart()
+    {
+        _data.Clear();
+    }
 }

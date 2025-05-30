@@ -69,7 +69,9 @@
 
         <TabControl Grid.Row="1" Grid.Column="0">
             <TabItem Header="График">
-                <lvc:CartesianChart></lvc:CartesianChart>
+                <lvc:CartesianChart Series="{Binding ChartLive.Series}"
+                                    XAxes="{Binding ChartLive.XAxis}"
+                                    YAxes="{Binding ChartLive.YAxis}"></lvc:CartesianChart>
             </TabItem>
             <TabItem Header="Градуировочный график"></TabItem>
         </TabControl>

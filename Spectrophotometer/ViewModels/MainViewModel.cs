@@ -1,7 +1,9 @@
-﻿using Spectrophotometer.Commands;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Spectrophotometer.Commands;
 using Spectrophotometer.Models;
 using Spectrophotometer.Service;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Spectrophotometer.ViewModels;
 
@@ -14,10 +16,12 @@ public class MainViewModel : Notifier
     private RatioMonomers? _loadedRatio;
     private double _minLambda = 100.0;
     private double _maxLambda = 100.0;
+    private MeasuringDevice _device;
 
     private IDataService _dataService;
     private IDialogService _dialogService;
-    private ChartLiveViewModel _chart;
+    private ChartLiveViewModel _chartLive;
+    private ChartOxyViewModel _chartOxy;
 
     #endregion
 
@@ -27,7 +31,11 @@ public class MainViewModel : Notifier
     {
         _dataService = new ExcelDataService("Content\\Data.xlsx");
         _dialogService = new MessageBoxDialogService();
-        _chart = new ChartLiveViewModel();
+        _chartLive = new ChartLiveViewModel();
+        _chartOxy = new ChartOxyViewModel();
+        _device = new MeasuringDevice();
+
+        _device.PropertyChanged += OnDevicePropertyChanged;
 
         var result = _dataService.LoadMixtures();
         if (result.IsSuccess)
@@ -36,6 +44,19 @@ public class MainViewModel : Notifier
         {
             //_dialogService.ShowMessage(result.Message);
             _mixtures = new ObservableCollection<MixtureMonomers>();
+        }
+    }
+
+    private void OnDevicePropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        switch (e.PropertyName)
+        {
+            case nameof(_device.CurrentPoint):
+                ChartLive.AddPoint(_device.CurrentPoint);
+                ChartOxy.AddPoint(_device.CurrentPoint);
+                break;
+            case nameof(_device.IsRunning):
+                break;
         }
     }
 
@@ -82,10 +103,16 @@ public class MainViewModel : Notifier
         set { SetValue(ref _maxLambda, value, nameof(MaxLambda)); }
     }
 
-    public ChartLiveViewModel Chart
+    public ChartLiveViewModel ChartLive
     {
-        get { return _chart; }
-        set { SetValue(ref _chart, value, nameof(_chart)); }
+        get { return _chartLive; }
+        set { SetValue(ref _chartLive, value, nameof(_chartLive)); }
+    }
+
+    public ChartOxyViewModel ChartOxy
+    {
+        get { return _chartOxy; }
+        set { SetValue(ref _chartOxy, value, nameof(ChartOxy)); }
     }
 
     #endregion
@@ -118,7 +145,19 @@ public class MainViewModel : Notifier
 
     public RelayCommand StartCommand
     {
-        get { return _startCommand; }
+        get
+        {
+            return _startCommand ??
+                (_startCommand = new RelayCommand(OnStart));
+        }
+    }
+
+    private void OnStart(object? parametr)
+    {
+        if (LoadedRatio != null && MinLambda < MaxLambda)
+        {
+            _device.StartMeasurement(MinLambda, MaxLambda, SelectedMixture, LoadedRatio);
+        }
     }
 
     public RelayCommand ResetCommand
@@ -133,6 +172,8 @@ public class MainViewModel : Notifier
     private void OnReset(object? parametr)
     {
         LoadedRatio = null;
+        ChartLive.ResetChart();
+        ChartOxy.ResetChart();
     }
 
     public RelayCommand PrintCommand
