@@ -11,9 +11,9 @@ public class MainViewModel : Notifier
 
     private ObservableCollection<MixtureMonomers> _mixtures;
     private MixtureMonomers _selectedMixture;
-    private RatioMonomers _selectedRatio;
-    private double _minLambda;
-    private double _maxLambda;
+    private RatioMonomers _loadedRatio;
+    private double _minLambda = 100.0;
+    private double _maxLambda = 100.0;
 
     private IDataService _dataService;
     private IDialogService _dialogService;
@@ -64,10 +64,10 @@ public class MainViewModel : Notifier
         }
     }
 
-    public RatioMonomers SelectedRatio
+    public RatioMonomers LoadedRatio
     {
-        get { return _selectedRatio; }
-        set { SetValue(ref _selectedRatio, value, nameof(SelectedRatio)); }
+        get { return _loadedRatio; }
+        set { SetValue(ref _loadedRatio, value, nameof(LoadedRatio)); }
     }
 
     public double MinLambda
@@ -93,9 +93,24 @@ public class MainViewModel : Notifier
     #region Commands
 
     private RelayCommand _preparationCommand;
-    private RelayCommand _startMeasurement;
+    private RelayCommand _startCommand;
     private RelayCommand _resetCommand;
     private RelayCommand _printCommand;
+
+    public RelayCommand PreparationCommand
+    {
+        get { return _preparationCommand; }
+    }
+
+    public RelayCommand StartCommand
+    {
+        get { return _startCommand; }
+    }
+
+    public RelayCommand ResetCommand
+    {
+        get { return _resetCommand; }
+    }
 
 
     #endregion

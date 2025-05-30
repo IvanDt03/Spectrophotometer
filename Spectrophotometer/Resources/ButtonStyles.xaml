@@ -4,13 +4,13 @@
     <Style x:Key="BtnEllipseStyle" TargetType="Button">
         <Setter Property="Width" Value="45"/>
         <Setter Property="Height" Value="45"/>
-        <Setter Property="BorderBrush" Value="LightGray"/>
+        <Setter Property="BorderBrush" Value="AntiqueWhite"/>
         <Setter Property="Margin" Value="3"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
-                        <Ellipse x:Name="ellipse" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="2"
+                        <Ellipse x:Name="ellipse" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1"
                                  Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"></Ellipse>
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
                                           Margin="1" SnapsToDevicePixels="True"></ContentPresenter>
@@ -23,8 +23,8 @@
                             <Setter Property="Opacity" Value="0.7"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ellipse" Property="Stroke" Value="DimGray"/>
-                            <Setter TargetName="ellipse" Property="StrokeThickness" Value="2"/>
+                            <Setter TargetName="ellipse" Property="Stroke" Value="LightGray"/>
+                            <Setter TargetName="ellipse" Property="StrokeThickness" Value="2.5"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

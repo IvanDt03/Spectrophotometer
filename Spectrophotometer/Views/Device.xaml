@@ -11,7 +11,7 @@
              d:DesignHeight="500" d:DesignWidth="800" d:DataContext="{d:DesignInstance {x:Type vm:MainViewModel}}">
    
     <Viewbox>
-        <Canvas Width="600" Height="450" Background="White">
+        <Canvas Width="600" Height="450" Background="Transparent">
             <Path Fill="LightGray" Stroke="DarkGray" StrokeThickness="4">
                 <Path.Data>
                     <GeometryGroup FillRule="Nonzero">
@@ -31,6 +31,24 @@
                     </GeometryGroup>
                 </Path.Data>
             </Path>
+            <Border Canvas.Left="227" Canvas.Top="202" CornerRadius="18" Background="Gray" Width="146" Height="96">
+                <Grid DataContext="{Binding LoadedRatio}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text=":"></TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Mixture.NameFirstMonomer}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Mixture.NameSecondMonomer}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding VolumeFirstMonomer}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding VolumeSecondMonomer}"/>
+                </Grid>
+            </Border>
             <Border Canvas.Left="176" Canvas.Top="71" Width="248" Height="108" Background="DarkSeaGreen" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -41,11 +59,15 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <oxy:PlotView Margin="3" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"></oxy:PlotView>
-                    <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource BtnEllipseStyle}" Background="LightGreen">Запуск</Button>
-                    <Button Grid.Column="1" Grid.Row="2" Style="{StaticResource BtnEllipseStyle}" Background="IndianRed">Сброс</Button>
+                    <oxy:PlotView Margin="3" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Background="LightCyan"></oxy:PlotView>
+                    <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource BtnEllipseStyle}" Background="LightGreen"
+                            Command="{Binding StartCommand}">Запуск</Button>
+                    <Button Grid.Column="1" Grid.Row="1" Style="{StaticResource BtnEllipseStyle}" Background="IndianRed"
+                            Command="{Binding ResetCommand}">Сброс</Button>
                 </Grid>
             </Border>
+            <local:KnobLambda Canvas.Left="70" Canvas.Top="275" ValueLambda="{Binding MinLambda}"></local:KnobLambda>
+            <local:KnobLambda Canvas.Left="405" Canvas.Top="275" ValueLambda="{Binding MaxLambda}"></local:KnobLambda>
         </Canvas>
     </Viewbox>
 </UserControl>

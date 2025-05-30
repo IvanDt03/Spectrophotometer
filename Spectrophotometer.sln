@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35919.96 d17.13
+VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectrophotometer", "Spectrophotometer\Spectrophotometer.csproj", "{21A723B9-12B3-46EF-9C6F-58810D10AE61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynthCustomControls", "SynthCustomControls\SynthCustomControls\SynthCustomControls.csproj", "{CBF41EC9-90FC-F4BD-DFB0-24994704A1D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{21A723B9-12B3-46EF-9C6F-58810D10AE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21A723B9-12B3-46EF-9C6F-58810D10AE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21A723B9-12B3-46EF-9C6F-58810D10AE61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBF41EC9-90FC-F4BD-DFB0-24994704A1D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF41EC9-90FC-F4BD-DFB0-24994704A1D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF41EC9-90FC-F4BD-DFB0-24994704A1D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF41EC9-90FC-F4BD-DFB0-24994704A1D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
