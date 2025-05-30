@@ -92,9 +92,10 @@ public class MainViewModel : Notifier
 
     #region Commands
 
+    private RelayCommand _preparationCommand;
     private RelayCommand _startMeasurement;
     private RelayCommand _resetCommand;
-
+    private RelayCommand _printCommand;
 
 
     #endregion
