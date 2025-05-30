@@ -47,7 +47,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock>Выбор концентрации смеси:</TextBlock>
-                <ComboBox ItemsSource="{Binding SelectedMixture.ListMonomerMixture}">
+                <ComboBox x:Name="cmbRatio" ItemsSource="{Binding SelectedMixture.ListMonomerMixture}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type model:RatioMonomers}">
                             <TextBlock>
@@ -61,7 +61,8 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <hc:ProgressButton Content="Загрузить в устройство" Command="{Binding PreparationCommand}"></hc:ProgressButton>
+                <hc:ProgressButton Content="Загрузить в устройство" Command="{Binding PreparationCommand}"
+                                   CommandParameter="{Binding ElementName=cmbRatio, Path=SelectedItem}"></hc:ProgressButton>
             </StackPanel>
             <view:Device></view:Device>
         </StackPanel>

@@ -11,7 +11,7 @@ public class MainViewModel : Notifier
 
     private ObservableCollection<MixtureMonomers> _mixtures;
     private MixtureMonomers _selectedMixture;
-    private RatioMonomers _loadedRatio;
+    private RatioMonomers? _loadedRatio;
     private double _minLambda = 100.0;
     private double _maxLambda = 100.0;
 
@@ -64,7 +64,7 @@ public class MainViewModel : Notifier
         }
     }
 
-    public RatioMonomers LoadedRatio
+    public RatioMonomers? LoadedRatio
     {
         get { return _loadedRatio; }
         set { SetValue(ref _loadedRatio, value, nameof(LoadedRatio)); }
@@ -99,7 +99,21 @@ public class MainViewModel : Notifier
 
     public RelayCommand PreparationCommand
     {
-        get { return _preparationCommand; }
+        get
+        {
+            return _preparationCommand ??
+                (_preparationCommand = new RelayCommand(OnPrepariation, o => o is not null));
+        }
+    }
+
+    private void OnPrepariation(object? parametr)
+    {
+        var ratio = parametr as RatioMonomers;
+
+        if (ratio != null)
+        {
+            LoadedRatio = ratio;
+        }
     }
 
     public RelayCommand StartCommand
@@ -109,7 +123,21 @@ public class MainViewModel : Notifier
 
     public RelayCommand ResetCommand
     {
-        get { return _resetCommand; }
+        get
+        {
+            return _resetCommand ??
+                (_resetCommand = new RelayCommand(OnReset));
+        }
+    }
+
+    private void OnReset(object? parametr)
+    {
+        LoadedRatio = null;
+    }
+
+    public RelayCommand PrintCommand
+    {
+        get { return _printCommand; }
     }
 
 
