@@ -22,16 +22,18 @@ public class ChartOxyViewModel : Notifier
 
         _xAxis = new LinearAxis
         {
-            //Title = "Длина волны, нм",
+            Title = "Длина волны, нм",
             Position = AxisPosition.Bottom,
             FontSize = 6,
+            TitleFontSize = 6,
         };
 
         _yAxis = new LinearAxis
         {
-            //Title = "Сигнал",
+            Title = "Сигнал",
             Position = AxisPosition.Left,
             FontSize = 6,
+            TitleFontSize = 6,
         };
 
         _model.Series.Add(_series);
@@ -56,4 +58,6 @@ public class ChartOxyViewModel : Notifier
         _series.Points.Clear();
         _model.InvalidatePlot(true);
     }
+
+    public bool IsEmpty() => _series.Points.Count == 0;
 }

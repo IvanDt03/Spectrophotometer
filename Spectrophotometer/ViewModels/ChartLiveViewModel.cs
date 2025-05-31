@@ -71,4 +71,6 @@ public class ChartLiveViewModel : Notifier
     {
         _data.Clear();
     }
+
+    public bool IsEmpty() => _data.Count == 0;
 }

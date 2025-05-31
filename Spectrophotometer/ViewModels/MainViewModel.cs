@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
-using Spectrophotometer.Commands;
+﻿using Spectrophotometer.Commands;
 using Spectrophotometer.Models;
 using Spectrophotometer.Service;
 using System.Collections.ObjectModel;
@@ -129,7 +128,7 @@ public class MainViewModel : Notifier
         get
         {
             return _preparationCommand ??
-                (_preparationCommand = new RelayCommand(OnPrepariation, o => o is not null));
+                (_preparationCommand = new RelayCommand(OnPrepariation, CanExecutePreparation));
         }
     }
 
@@ -143,21 +142,31 @@ public class MainViewModel : Notifier
         }
     }
 
+    private bool CanExecutePreparation(object? parametr)
+    {
+        return parametr is not null && LoadedRatio is null && !_device.IsRunning;
+    }
+
     public RelayCommand StartCommand
     {
         get
         {
             return _startCommand ??
-                (_startCommand = new RelayCommand(OnStart));
+                (_startCommand = new RelayCommand(OnStart, CanExecuteStart));
         }
     }
 
     private void OnStart(object? parametr)
     {
-        if (LoadedRatio != null && MinLambda < MaxLambda)
+        if (MinLambda < MaxLambda)
         {
             _device.StartMeasurement(MinLambda, MaxLambda, SelectedMixture, LoadedRatio);
         }
+    }
+
+    private bool CanExecuteStart(object? parametr)
+    {
+        return LoadedRatio is not null && !_device.IsRunning && ChartLive.IsEmpty() && ChartOxy.IsEmpty();
     }
 
     public RelayCommand ResetCommand
@@ -165,7 +174,7 @@ public class MainViewModel : Notifier
         get
         {
             return _resetCommand ??
-                (_resetCommand = new RelayCommand(OnReset));
+                (_resetCommand = new RelayCommand(OnReset, CanExecuteReset));
         }
     }
 
@@ -176,11 +185,29 @@ public class MainViewModel : Notifier
         ChartOxy.ResetChart();
     }
 
-    public RelayCommand PrintCommand
+    private bool CanExecuteReset(object? parameter)
     {
-        get { return _printCommand; }
+        return !_device.IsRunning && LoadedRatio is not null;
     }
 
+    public RelayCommand PrintCommand
+    {
+        get
+        {
+            return _printCommand ??
+                (_printCommand = new RelayCommand(OnPrint, CanExecutePrint));
+        }
+    }
+
+    private void OnPrint(object? parametr)
+    {
+
+    }
+
+    private bool CanExecutePrint(object? parametr)
+    {
+        return !_device.IsRunning;
+    }
 
     #endregion
 }
