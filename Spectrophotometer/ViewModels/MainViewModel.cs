@@ -158,7 +158,7 @@ public class MainViewModel : Notifier
 
     private void OnStart(object? parametr)
     {
-        if (MinLambda < MaxLambda)
+        if (LoadedRatio != null && MinLambda < MaxLambda)
         {
             _device.StartMeasurement(MinLambda, MaxLambda, SelectedMixture, LoadedRatio);
         }

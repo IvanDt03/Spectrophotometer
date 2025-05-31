@@ -61,8 +61,8 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <hc:ProgressButton Content="Загрузить в устройство" Command="{Binding PreparationCommand}"
-                                   CommandParameter="{Binding ElementName=cmbRatio, Path=SelectedItem}"></hc:ProgressButton>
+                <Button Content="Загрузить в устройство" Command="{Binding PreparationCommand}"
+                                   CommandParameter="{Binding ElementName=cmbRatio, Path=SelectedItem}"></Button>
             </StackPanel>
             <view:Device></view:Device>
         </StackPanel>
