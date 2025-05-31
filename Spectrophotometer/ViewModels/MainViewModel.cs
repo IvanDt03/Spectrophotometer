@@ -29,7 +29,7 @@ public class MainViewModel : Notifier
     public MainViewModel()
     {
         _dataService = new ExcelDataService("Content\\Data.xlsx");
-        _dialogService = new MessageBoxDialogService();
+        _dialogService = new DialogService();
         _chartLive = new ChartLiveViewModel();
         _chartOxy = new ChartOxyViewModel();
         _device = new MeasuringDevice();
@@ -55,6 +55,7 @@ public class MainViewModel : Notifier
                 ChartOxy.AddPoint(_device.CurrentPoint);
                 break;
             case nameof(_device.IsRunning):
+                ResetCommand.RaiseCanExecuteChanged();
                 break;
         }
     }
@@ -118,17 +119,17 @@ public class MainViewModel : Notifier
 
     #region Commands
 
-    private RelayCommand _preparationCommand;
+    private RelayCommand _loadedCommand;
     private RelayCommand _startCommand;
     private RelayCommand _resetCommand;
     private RelayCommand _printCommand;
 
-    public RelayCommand PreparationCommand
+    public RelayCommand LoadedCommand
     {
         get
         {
-            return _preparationCommand ??
-                (_preparationCommand = new RelayCommand(OnPrepariation, CanExecutePreparation));
+            return _loadedCommand ??
+                (_loadedCommand = new RelayCommand(OnPrepariation, CanExecutePreparation));
         }
     }
 
@@ -160,6 +161,7 @@ public class MainViewModel : Notifier
     {
         if (LoadedRatio != null && MinLambda < MaxLambda)
         {
+            ChartLive.PreparationChart(MinLambda, MaxLambda);
             _device.StartMeasurement(MinLambda, MaxLambda, SelectedMixture, LoadedRatio);
         }
     }
@@ -201,7 +203,7 @@ public class MainViewModel : Notifier
 
     private void OnPrint(object? parametr)
     {
-
+        _dialogService.PrintChart(ChartOxy.Model);
     }
 
     private bool CanExecutePrint(object? parametr)

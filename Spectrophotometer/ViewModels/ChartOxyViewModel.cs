@@ -22,18 +22,19 @@ public class ChartOxyViewModel : Notifier
 
         _xAxis = new LinearAxis
         {
-            Title = "Длина волны, нм",
+            //Title = "Длина волны, нм",
             Position = AxisPosition.Bottom,
-            FontSize = 6,
-            TitleFontSize = 6,
+            FontSize = 1,
+            //TitleFontSize = 6,
         };
 
         _yAxis = new LinearAxis
         {
-            Title = "Сигнал",
+            //Title = "Сигнал",
             Position = AxisPosition.Left,
-            FontSize = 6,
-            TitleFontSize = 6,
+            FontSize = 1,
+            //TitleFontSize = 6,
+            Maximum = 1.0,
         };
 
         _model.Series.Add(_series);

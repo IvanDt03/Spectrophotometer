@@ -40,6 +40,7 @@ public class ChartLiveViewModel : Notifier
             new Axis
             {
                 Name = "Сигнал",
+                MaxLimit = 1.0,
             }
         };
     }
@@ -60,6 +61,12 @@ public class ChartLiveViewModel : Notifier
     {
         get { return _yAxis; }
         set { SetValue(ref _yAxis, value, nameof(YAxis)); }
+    }
+
+    public void PreparationChart(double minLambda, double maxLambda)
+    {
+        XAxis[0].MinLimit = minLambda;
+        XAxis[0].MaxLimit = maxLambda + 5;
     }
 
     public void AddPoint(DataPoint point)

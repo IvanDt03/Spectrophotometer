@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:hc="https://handyorg.github.io/handycontrol">
     <Style x:Key="BtnEllipseStyle" TargetType="Button">
-        <Setter Property="Width" Value="45"/>
-        <Setter Property="Height" Value="45"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
         <Setter Property="BorderBrush" Value="AntiqueWhite"/>
         <Setter Property="Margin" Value="3"/>
         <Setter Property="Template">

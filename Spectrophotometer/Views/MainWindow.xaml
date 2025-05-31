@@ -61,12 +61,12 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="Загрузить в устройство" Command="{Binding PreparationCommand}"
+                <Button Content="Загрузить в устройство" Command="{Binding LoadedCommand}"
                                    CommandParameter="{Binding ElementName=cmbRatio, Path=SelectedItem}"></Button>
             </StackPanel>
             <view:Device></view:Device>
+            <Button Command="{Binding PrintCommand}">Версия для печати</Button>
         </StackPanel>
-
         <TabControl Grid.Row="1" Grid.Column="0">
             <TabItem Header="График">
                 <lvc:CartesianChart Series="{Binding ChartLive.Series}"

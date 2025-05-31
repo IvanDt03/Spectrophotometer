@@ -22,13 +22,13 @@ public class ExcelDataService : IDataService
             
             foreach(var ws in wb.Worksheets)
             {
-                string nameFirstMonomer = ws.Cell("D19").GetString();
-                string nameSecondMonomer = ws.Cell("D20").GetString();
+                string nameFirstMonomer = ws.Cell("Q17").GetString();
+                string nameSecondMonomer = ws.Cell("Q18").GetString();
                 string title = ws.Name;
-                double lambdaMin = ws.Cell("A25").GetDouble();
-                double lambdaMax = ws.Cell("B25").GetDouble();
-                double lambdaA = ws.Cell("C25").GetDouble();
-                double wFactor = ws.Cell("D25").GetDouble();
+                double lambdaMin = ws.Cell("N24").GetDouble();
+                double lambdaMax = ws.Cell("O24").GetDouble();
+                double lambdaA = ws.Cell("P24").GetDouble();
+                double wFactor = ws.Cell("Q24").GetDouble();
 
                 result.Add(new MixtureMonomers(title, nameFirstMonomer, nameSecondMonomer, lambdaMin, lambdaMax, lambdaA, wFactor));
             }
@@ -37,7 +37,7 @@ public class ExcelDataService : IDataService
         catch(Exception ex)
         {
             return LoadResult<List<MixtureMonomers>>.Failure($"Ошибка считвания данных из Excel-файла\n" +
-                $"Ошибка может быть в ячейках: D19, D20, A25, B25, C25, D25" +
+                $"Ошибка может быть в ячейках: Q17, Q18, N24, O24, P24, Q24" +
                 $"\n{ex.Message}");
         }
     }

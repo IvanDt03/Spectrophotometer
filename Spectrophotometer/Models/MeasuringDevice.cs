@@ -63,7 +63,7 @@ public class MeasuringDevice : Notifier
     public bool IsRunning
     {
         get { return _isRunning; }
-        private set { SetValue(ref _isRunning, value, nameof(_isRunning)); }
+        private set { SetValue(ref _isRunning, value, nameof(IsRunning)); }
     }
 
     private double ValueBack_1
