@@ -50,7 +50,7 @@ public class ChartOxyViewModel : Notifier
 
     public void AddPoint(Spectrophotometer.Models.DataPoint point)
     {
-        _series.Points.Add(new DataPoint(point.Lambda, point.Signal));
+        _series.Points.Add(new DataPoint(point.X, point.Y));
         _model.InvalidatePlot(true);
     }
 

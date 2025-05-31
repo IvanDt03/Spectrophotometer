@@ -47,7 +47,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock>Выбор концентрации смеси:</TextBlock>
-                <ComboBox x:Name="cmbRatio" ItemsSource="{Binding SelectedMixture.ListMonomerMixture}">
+                <ComboBox x:Name="cmbRatio" ItemsSource="{Binding SelectedMixture.ListRatio}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type model:RatioMonomers}">
                             <TextBlock>
@@ -68,12 +68,44 @@
             <Button Command="{Binding PrintCommand}">Версия для печати</Button>
         </StackPanel>
         <TabControl Grid.Row="1" Grid.Column="0">
-            <TabItem Header="График">
+            <TabItem Header="Спектр">
                 <lvc:CartesianChart Series="{Binding ChartLive.Series}"
                                     XAxes="{Binding ChartLive.XAxis}"
                                     YAxes="{Binding ChartLive.YAxis}"></lvc:CartesianChart>
             </TabItem>
-            <TabItem Header="Градуировочный график"></TabItem>
+            <TabItem Header="Обработка результатов">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="0.4*"></RowDefinition>
+                        <RowDefinition Height="0.4*"></RowDefinition>
+                        <RowDefinition Height="0.4*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.ColumnSpan="2" Text="Градуировочный график"/>
+                    <lvc:CartesianChart Grid.Row="1" Grid.ColumnSpan="2"
+                                        Series="{Binding ChartCalibration.Series}"
+                                        XAxes="{Binding ChartCalibration.XAxis}"
+                                        YAxes="{Binding ChartCalibration.YAxis}"/>
+                    <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="Обработка результатов"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Введите значение А на максимуме кривой:"/>
+                    <TextBox Grid.Row="3" Grid.Column="1"/>
+                    <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Рассчитать"/>
+                    <Label Grid.Row="5" Grid.Column="0" BorderBrush="{x:Null}">
+                        <TextBlock>
+                            <Run Text="Мольная доля для мономера"/>
+                            <Run Text="{Binding SelectedMixture.NameFirstMonomer, StringFormat='&quot;{0}&quot;'}"/>
+                        </TextBlock>
+                    </Label>
+                    <TextBox Grid.Row="5" Grid.Column="1"></TextBox>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

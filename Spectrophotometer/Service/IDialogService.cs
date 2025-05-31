@@ -7,5 +7,5 @@ namespace Spectrophotometer.Service;
 public interface IDialogService
 {
     void ShowMessage(string? message, string title = "Сообщение");
-    void PrintChart(PlotModel model, RatioMonomers ratio, MixtureMonomers mixture);
+    void PrintChart(PlotModel model, RatioMonomers? ratio, MixtureMonomers mixture);
 }

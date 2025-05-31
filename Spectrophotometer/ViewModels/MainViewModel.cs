@@ -21,6 +21,7 @@ public class MainViewModel : Notifier
     private IDialogService _dialogService;
     private ChartLiveViewModel _chartLive;
     private ChartOxyViewModel _chartOxy;
+    private ChartCalibrationViewModel _chartCalibration;
 
     #endregion
 
@@ -32,6 +33,7 @@ public class MainViewModel : Notifier
         _dialogService = new DialogService();
         _chartLive = new ChartLiveViewModel();
         _chartOxy = new ChartOxyViewModel();
+        _chartCalibration = new ChartCalibrationViewModel();
         _device = new MeasuringDevice();
 
         _device.PropertyChanged += OnDevicePropertyChanged;
@@ -77,11 +79,12 @@ public class MainViewModel : Notifier
         {
             var result = _dataService.LoadUnitMixture(value);
             if (result.IsSuccess)
-                value.ListMonomerMixture = new ObservableCollection<RatioMonomers>(result.Data);
+                value.ListRatio = new ObservableCollection<RatioMonomers>(result.Data);
             else
                 _dialogService.ShowMessage(result.Message);
 
-                SetValue(ref _selectedMixture, value, nameof(SelectedMixture));
+            ChartCalibration.UpdateChart(value.DataForCalibration);
+            SetValue(ref _selectedMixture, value, nameof(SelectedMixture));
         }
     }
 
@@ -113,6 +116,12 @@ public class MainViewModel : Notifier
     {
         get { return _chartOxy; }
         set { SetValue(ref _chartOxy, value, nameof(ChartOxy)); }
+    }
+
+    public ChartCalibrationViewModel ChartCalibration
+    {
+        get { return _chartCalibration; }
+        set { SetValue(ref _chartCalibration, value, nameof(ChartCalibration)); }
     }
 
     #endregion

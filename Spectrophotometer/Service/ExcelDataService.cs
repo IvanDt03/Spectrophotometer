@@ -29,8 +29,11 @@ public class ExcelDataService : IDataService
                 double lambdaMax = ws.Cell("O24").GetDouble();
                 double lambdaA = ws.Cell("P24").GetDouble();
                 double wFactor = ws.Cell("Q24").GetDouble();
+                double freeFactor = ws.Cell("N31").GetDouble();
+                double angularFactor = ws.Cell("O31").GetDouble();
+                var dataForCalibration = GetDataForCalibration(ws);
 
-                result.Add(new MixtureMonomers(title, nameFirstMonomer, nameSecondMonomer, lambdaMin, lambdaMax, lambdaA, wFactor));
+                result.Add(new MixtureMonomers(title, nameFirstMonomer, nameSecondMonomer, lambdaMin, lambdaMax, lambdaA, wFactor, freeFactor, angularFactor, dataForCalibration));
             }
             return LoadResult<List<MixtureMonomers>>.Seccess(result);
         }
@@ -40,6 +43,20 @@ public class ExcelDataService : IDataService
                 $"Ошибка может быть в ячейках: Q17, Q18, N24, O24, P24, Q24" +
                 $"\n{ex.Message}");
         }
+    }
+
+    private IEnumerable<DataPoint> GetDataForCalibration(IXLWorksheet ws)
+    {
+        var result = new List<DataPoint>();
+        var row = ws.Row(31);
+
+        while (!row.Cell("U").IsEmpty() && !row.Cell("V").IsEmpty())
+        {
+            result.Add(new DataPoint(row.Cell("U").GetDouble(), row.Cell("V").GetDouble()));
+            row = row.RowBelow();
+        }
+
+        return result;
     }
 
     public LoadResult<List<RatioMonomers>> LoadUnitMixture(MixtureMonomers mixture)

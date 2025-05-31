@@ -1,27 +1,25 @@
-﻿using LiveChartsCore;
-using LiveChartsCore.Kernel.Sketches;
+﻿using LiveChartsCore.Kernel.Sketches;
+using LiveChartsCore;
+using System.Collections.ObjectModel;
 using LiveChartsCore.SkiaSharpView;
 using Spectrophotometer.Models;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace Spectrophotometer.ViewModels;
 
-public class ChartLiveViewModel : Notifier
+public class ChartCalibrationViewModel : Notifier
 {
-    private ObservableCollection<DataPoint> _data;
     private ObservableCollection<ISeries> _series;
     private ObservableCollection<ICartesianAxis> _xAxis;
     private ObservableCollection<ICartesianAxis> _yAxis;
 
-    public ChartLiveViewModel()
+    public ChartCalibrationViewModel()
     {
-        _data = new ObservableCollection<DataPoint>();
 
         _series = new ObservableCollection<ISeries>
         {
             new LineSeries<DataPoint>
             {
-                Values = _data,
                 Mapping = (point, index) => new LiveChartsCore.Kernel.Coordinate(point.X, point.Y),
                 Fill = null
             },
@@ -31,7 +29,7 @@ public class ChartLiveViewModel : Notifier
         {
             new Axis
             {
-                Name = "Длина волны, нм",
+                Name = "F",
             }
         };
 
@@ -39,9 +37,7 @@ public class ChartLiveViewModel : Notifier
         {
             new Axis
             {
-                Name = "Сигнал",
-                MinLimit = 0.0,
-                MaxLimit = 1.5,
+                Name = "A",
             }
         };
     }
@@ -49,7 +45,7 @@ public class ChartLiveViewModel : Notifier
     public ObservableCollection<ISeries> Series
     {
         get { return _series; }
-        set { SetValue(ref _series, value, nameof(Series)); } 
+        set { SetValue(ref _series, value, nameof(Series)); }
     }
 
     public ObservableCollection<ICartesianAxis> XAxis
@@ -64,23 +60,8 @@ public class ChartLiveViewModel : Notifier
         set { SetValue(ref _yAxis, value, nameof(YAxis)); }
     }
 
-    public void PreparationChart(double minLambda, double maxLambda)
+    public void UpdateChart(IEnumerable<DataPoint> data)
     {
-        XAxis[0].MinLimit = minLambda;
-        XAxis[0].MaxLimit = maxLambda + 5;
+        Series[0].Values = data;
     }
-
-    public void AddPoint(DataPoint point)
-    {
-        _data.Add(point);
-    }
-
-    public void ResetChart()
-    {
-        _data.Clear();
-    }
-
-    
-
-    public bool IsEmpty() => _data.Count == 0;
 }

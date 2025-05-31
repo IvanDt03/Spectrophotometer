@@ -2,12 +2,12 @@
 
 public struct DataPoint
 {
-    public double Lambda { get; set; }
-    public double Signal { get; set; }
+    public double X { get; set; }
+    public double Y { get; set; }
 
-    public DataPoint(double lambda, double signal)
+    public DataPoint(double x, double y)
     {
-        Lambda = lambda;
-        Signal = signal;
+        X = x;
+        Y = y;
     }
 }

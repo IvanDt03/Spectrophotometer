@@ -14,7 +14,7 @@ public class DialogService : IDialogService
         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
-    public void PrintChart(PlotModel model, RatioMonomers ratio, MixtureMonomers mixture)
+    public void PrintChart(PlotModel model, RatioMonomers? ratio, MixtureMonomers mixture)
     {
         var printDialog = new PrintDialog();
         printDialog.PrintTicket.PageOrientation = System.Printing.PageOrientation.Landscape;
