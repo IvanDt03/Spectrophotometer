@@ -1,6 +1,8 @@
 ﻿using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 using Spectrophotometer.Models;
 using System.Collections.ObjectModel;
 
@@ -23,7 +25,12 @@ public class ChartLiveViewModel : Notifier
             {
                 Values = _data,
                 Mapping = (point, index) => new LiveChartsCore.Kernel.Coordinate(point.X, point.Y),
-                Fill = null
+                Fill = null,
+                GeometryFill = null,
+                GeometryStroke = null,
+                Stroke = new SolidColorPaint(SKColors.Green) {StrokeThickness = 2 },
+                XToolTipLabelFormatter = point => $"Длина волна: {point.Model.X}",
+                YToolTipLabelFormatter = point => $"Сигнал: {point.Model.Y:F3}",
             },
         };
 

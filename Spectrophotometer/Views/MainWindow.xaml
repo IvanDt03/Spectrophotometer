@@ -11,7 +11,7 @@
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
-        Title="MainWindow" Height="500" Width="800" Icon="/Content/Icon2.ico">
+        Title="MainWindow" Height="1000" Width="1600" Icon="/Content/Icon2.ico">
 
     <Window.DataContext>
         <vm:MainViewModel></vm:MainViewModel>
@@ -38,16 +38,19 @@
         </Menu>
 
         <StackPanel Grid.Column="1" Grid.Row="1">
-            <TextBlock>Спектрофотометр</TextBlock>
+            <TextBlock Style="{StaticResource TextBlockThemeStyle}" Margin="0 28.5 0 5">Спектрофотометр</TextBlock>
             <StackPanel Orientation="Horizontal">
-                <TextBlock>Выбор смеси мономеров:</TextBlock>
+                <TextBlock Style="{StaticResource TextBlockCaptionStyle}"
+                           Margin="10 30 10 20">Выбор смеси мономеров:</TextBlock>
                 <ComboBox x:Name="cmbMixtures" ItemsSource="{Binding Mixtures}"
                           SelectedItem="{Binding SelectedMixture}"
-                          DisplayMemberPath="Title"></ComboBox>
+                          DisplayMemberPath="Title"
+                          Style="{StaticResource ComboBoxStyle}"></ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock>Выбор концентрации смеси:</TextBlock>
-                <ComboBox x:Name="cmbRatio" ItemsSource="{Binding SelectedMixture.ListRatio}">
+                <TextBlock Style="{StaticResource TextBlockCaptionStyle}"
+                           Margin="10 30 10 20">Выбор концентрации смеси:</TextBlock>
+                <ComboBox x:Name="cmbRatio" Style="{StaticResource ComboBoxStyle}" ItemsSource="{Binding SelectedMixture.ListRatio}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type model:RatioMonomers}">
                             <TextBlock>
@@ -62,10 +65,11 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Button Content="Загрузить в устройство" Command="{Binding LoadedCommand}"
-                                   CommandParameter="{Binding ElementName=cmbRatio, Path=SelectedItem}"></Button>
+                        CommandParameter="{Binding ElementName=cmbRatio, Path=SelectedItem}"
+                        Style="{StaticResource BtnStyle}"></Button>
             </StackPanel>
             <view:Device></view:Device>
-            <Button Command="{Binding PrintCommand}">Версия для печати</Button>
+            <Button Command="{Binding PrintCommand}" Style="{StaticResource BtnStyle}" Height="55">🖶 Версия для печати</Button>
         </StackPanel>
         <TabControl Grid.Row="1" Grid.Column="0">
             <TabItem Header="Спектр">
@@ -83,27 +87,56 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="0.4*"></RowDefinition>
-                        <RowDefinition Height="0.4*"></RowDefinition>
-                        <RowDefinition Height="0.4*"></RowDefinition>
+                        <RowDefinition Height="0.3*"></RowDefinition>
+                        <RowDefinition Height="0.3*"></RowDefinition>
+                        <RowDefinition Height="0.3*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.ColumnSpan="2" Text="Градуировочный график"/>
+                    <TextBlock Grid.ColumnSpan="2" Text="Градуировочный график" 
+                               Style="{StaticResource TextBlockThemeStyle}" 
+                               Margin="0 0 0 20"/>
                     <lvc:CartesianChart Grid.Row="1" Grid.ColumnSpan="2"
                                         Series="{Binding ChartCalibration.Series}"
                                         XAxes="{Binding ChartCalibration.XAxis}"
-                                        YAxes="{Binding ChartCalibration.YAxis}"/>
-                    <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="Обработка результатов"/>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Введите значение А на максимуме кривой:"/>
-                    <TextBox Grid.Row="3" Grid.Column="1"/>
-                    <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Рассчитать"/>
-                    <Label Grid.Row="5" Grid.Column="0" BorderBrush="{x:Null}">
+                                        YAxes="{Binding ChartCalibration.YAxis}"
+                                        />
+                    <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="Обработка результатов" 
+                               Style="{StaticResource TextBlockThemeStyle}"
+                               Margin="0 10 0 10"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" 
+                               Text="Введите значение А на максимуме кривой:"
+                               Style="{StaticResource TextBlockCaptionStyle}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               Margin="10"/>
+                    <TextBox x:Name="xfactor" Grid.Row="3" Grid.Column="1" Width="150" Height="40"
+                             HorizontalAlignment="Left" Margin="10" FontSize="18" IsTabStop="False">
+                        <TextBox.Text>
+                            <Binding Path="SignalCalibration" 
+                                     UpdateSourceTrigger="PropertyChanged" 
+                                     ValidatesOnDataErrors="True" 
+                                     ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <vm:DoubleValidationRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Рассчитать"
+                            Command="{Binding CalculateCommand}"
+                            CommandParameter="{Binding ElementName=xfactor, Path=Text}"
+                            Style="{StaticResource BtnStyle}"/>
+                    <Label Grid.Row="5" Grid.Column="0" BorderBrush="{x:Null}" HorizontalAlignment="Right"
+                           Margin="0 0 20 0" Height="40">
                         <TextBlock>
-                            <Run Text="Мольная доля для мономера"/>
-                            <Run Text="{Binding SelectedMixture.NameFirstMonomer, StringFormat='&quot;{0}&quot;'}"/>
+                            <Run Text="Мольная доля для мономера" FontSize="18"/>
+                            <Run Text="{Binding SelectedMixture.NameFirstMonomer, StringFormat='&quot;{0}&quot;'}" FontSize="18"
+                                 FontWeight="Bold"/>
                         </TextBlock>
                     </Label>
-                    <TextBox Grid.Row="5" Grid.Column="1"></TextBox>
+                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding MolarFraction, StringFormat={}{0:0.###}}"
+                             Width="150" Height="40" HorizontalAlignment="Left" Margin="10" 
+                             FontSize="18" IsReadOnly="True" Focusable="False"></TextBox>
                 </Grid>
             </TabItem>
         </TabControl>

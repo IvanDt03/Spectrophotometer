@@ -29,7 +29,15 @@
         </custom:Knob.AnnotationLabels>
         <custom:Knob.ManualTickRadiusStart>1.0</custom:Knob.ManualTickRadiusStart>
         <custom:Knob.ManualTickRadiusEnd>1.2</custom:Knob.ManualTickRadiusEnd>
-        <custom:Knob.MarkerStyle>Line3</custom:Knob.MarkerStyle>
-        <custom:Knob.MarkerWidth>3</custom:Knob.MarkerWidth>
+        <custom:Knob.MarkerStyle>Line2</custom:Knob.MarkerStyle>
+        <custom:Knob.MarkerWidth>7</custom:Knob.MarkerWidth>
+        <custom:Knob.OutlineWidth>2</custom:Knob.OutlineWidth>
+        <custom:Knob.FillBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Offset="0.25" Color="DarkGray"></GradientStop>
+                <GradientStop Offset="1" Color="White"></GradientStop>
+            </LinearGradientBrush>
+        </custom:Knob.FillBrush>
+        <custom:Knob.TickWidth>2</custom:Knob.TickWidth>
     </custom:Knob>
 </UserControl>

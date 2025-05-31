@@ -31,7 +31,7 @@
                     </GeometryGroup>
                 </Path.Data>
             </Path>
-            <Border Canvas.Left="227" Canvas.Top="202" CornerRadius="18" Background="Gray" Width="146" Height="96">
+            <Border Canvas.Left="227" Canvas.Top="202" CornerRadius="18" Background="DarkGray" BorderBrush="Black" BorderThickness="1"  Width="146" Height="96">
                 <Grid DataContext="{Binding LoadedRatio}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -42,11 +42,15 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text=":"></TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Mixture.NameFirstMonomer}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Mixture.NameSecondMonomer}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding VolumeFirstMonomer}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding VolumeSecondMonomer}"/>
+                    <Rectangle Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Width="1" Fill="Black"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Mixture.NameFirstMonomer}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Mixture.NameSecondMonomer}"/>
+                    <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Width="50" Height="40" Background="{x:Null}" BorderBrush="Black" 
+                             TextAlignment="Center" Text="{Binding VolumeFirstMonomer, StringFormat={}{0:0.##}}" IsReadOnly="True" Focusable="False" FontWeight="Bold"
+                             TextWrapping="Wrap"/>
+                    <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Width="50" Height="40" Background="{x:Null}" BorderBrush="Black" 
+                             TextAlignment="Center" Text="{Binding VolumeSecondMonomer, StringFormat={}{0:0.##}}" IsReadOnly="True" Focusable="False" FontWeight="Bold"
+                             TextWrapping="Wrap"/>
                 </Grid>
             </Border>
             <Border Canvas.Left="165" Canvas.Top="60" Width="270" Height="130" Background="DarkSeaGreen" CornerRadius="5" BorderBrush="Black" BorderThickness="1">

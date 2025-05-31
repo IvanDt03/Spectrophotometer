@@ -3,6 +3,7 @@ using Spectrophotometer.Models;
 using Spectrophotometer.Service;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Spectrophotometer.ViewModels;
 
@@ -15,6 +16,8 @@ public class MainViewModel : Notifier
     private RatioMonomers? _loadedRatio;
     private double _minLambda = 100.0;
     private double _maxLambda = 100.0;
+    private string _signalCalibration;
+    private double _molarFraction;
     private MeasuringDevice _device;
 
     private IDataService _dataService;
@@ -124,6 +127,18 @@ public class MainViewModel : Notifier
         set { SetValue(ref _chartCalibration, value, nameof(ChartCalibration)); }
     }
 
+    public double MolarFraction
+    {
+        get { return _molarFraction; }
+        set { SetValue(ref _molarFraction, value, nameof(MolarFraction)); }
+    }
+
+    public string SignalCalibration
+    {
+        get { return _signalCalibration; }
+        set { SetValue(ref _signalCalibration, value, nameof(SignalCalibration)); }
+    }
+
     #endregion
 
     #region Commands
@@ -132,6 +147,7 @@ public class MainViewModel : Notifier
     private RelayCommand _startCommand;
     private RelayCommand _resetCommand;
     private RelayCommand _printCommand;
+    private RelayCommand _calculateCommand;
 
     public RelayCommand LoadedCommand
     {
@@ -141,7 +157,6 @@ public class MainViewModel : Notifier
                 (_loadedCommand = new RelayCommand(OnPrepariation, CanExecutePreparation));
         }
     }
-
     private void OnPrepariation(object? parametr)
     {
         var ratio = parametr as RatioMonomers;
@@ -151,7 +166,6 @@ public class MainViewModel : Notifier
             LoadedRatio = ratio;
         }
     }
-
     private bool CanExecutePreparation(object? parametr)
     {
         return parametr is not null && LoadedRatio is null && !_device.IsRunning;
@@ -165,7 +179,6 @@ public class MainViewModel : Notifier
                 (_startCommand = new RelayCommand(OnStart, CanExecuteStart));
         }
     }
-
     private void OnStart(object? parametr)
     {
         if (LoadedRatio != null && MinLambda < MaxLambda)
@@ -174,7 +187,6 @@ public class MainViewModel : Notifier
             _device.StartMeasurement(MinLambda, MaxLambda, SelectedMixture, LoadedRatio);
         }
     }
-
     private bool CanExecuteStart(object? parametr)
     {
         return LoadedRatio is not null && !_device.IsRunning && ChartLive.IsEmpty() && ChartOxy.IsEmpty();
@@ -188,14 +200,12 @@ public class MainViewModel : Notifier
                 (_resetCommand = new RelayCommand(OnReset, CanExecuteReset));
         }
     }
-
     private void OnReset(object? parametr)
     {
         LoadedRatio = null;
         ChartLive.ResetChart();
         ChartOxy.ResetChart();
     }
-
     private bool CanExecuteReset(object? parameter)
     {
         return !_device.IsRunning && LoadedRatio is not null;
@@ -209,15 +219,33 @@ public class MainViewModel : Notifier
                 (_printCommand = new RelayCommand(OnPrint, CanExecutePrint));
         }
     }
-
     private void OnPrint(object? parametr)
     {
         _dialogService.PrintChart(ChartOxy.Model, LoadedRatio, SelectedMixture);
     }
-
     private bool CanExecutePrint(object? parametr)
     {
         return !_device.IsRunning;
+    }
+
+    public RelayCommand CalculateCommand
+    {
+        get
+        {
+            return _calculateCommand ??
+                (_calculateCommand = new RelayCommand(OnCalculate));
+        }
+    }
+
+    private void OnCalculate(object? parametr)
+    {
+        if (SignalCalibration is not null && SelectedMixture is not null)
+        {
+            string input = SignalCalibration.Replace(',', '.');
+
+            if (double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
+                MolarFraction = (result - SelectedMixture.FreeFactor) / SelectedMixture.AngularFactor;
+        }
     }
 
     #endregion

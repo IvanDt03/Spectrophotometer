@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using LiveChartsCore.SkiaSharpView;
 using Spectrophotometer.Models;
 using System.Collections.Generic;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 
 namespace Spectrophotometer.ViewModels;
 
@@ -21,7 +23,11 @@ public class ChartCalibrationViewModel : Notifier
             new LineSeries<DataPoint>
             {
                 Mapping = (point, index) => new LiveChartsCore.Kernel.Coordinate(point.X, point.Y),
-                Fill = null
+                Fill = null,
+                Stroke = new SolidColorPaint(SKColors.Green) {StrokeThickness = 3 },
+                GeometryStroke = new SolidColorPaint(SKColors.Green) {StrokeThickness = 3},
+                YToolTipLabelFormatter = point => $"A: {point.Model.Y:F3}",
+                XToolTipLabelFormatter = point => $"F: {point.Model.X:F3}",
             },
         };
 
