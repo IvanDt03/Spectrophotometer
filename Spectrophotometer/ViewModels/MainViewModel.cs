@@ -203,7 +203,7 @@ public class MainViewModel : Notifier
 
     private void OnPrint(object? parametr)
     {
-        _dialogService.PrintChart(ChartOxy.Model);
+        _dialogService.PrintChart(ChartOxy.Model, LoadedRatio, SelectedMixture);
     }
 
     private bool CanExecutePrint(object? parametr)

@@ -17,29 +17,29 @@ public class ChartOxyViewModel : Notifier
 
         _series = new LineSeries
         {
-
+            TrackerFormatString = "Длина волны: {2:0.}\nСигнал: {4:0.000}",
         };
 
         _xAxis = new LinearAxis
         {
-            //Title = "Длина волны, нм",
             Position = AxisPosition.Bottom,
-            FontSize = 1,
-            //TitleFontSize = 6,
+            FontSize = 6,
+            IsPanEnabled = false,
         };
 
         _yAxis = new LinearAxis
         {
-            //Title = "Сигнал",
             Position = AxisPosition.Left,
-            FontSize = 1,
-            //TitleFontSize = 6,
-            Maximum = 1.0,
+            FontSize = 6,
+            Minimum = 0.0,
+            Maximum = 1.5,
+            IsPanEnabled = false,
         };
 
         _model.Series.Add(_series);
         _model.Axes.Add(_xAxis);
         _model.Axes.Add(_yAxis);
+        _model.Padding = new OxyThickness(5);
     }
 
     public PlotModel Model

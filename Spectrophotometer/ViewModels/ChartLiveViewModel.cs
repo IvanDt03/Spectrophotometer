@@ -40,7 +40,8 @@ public class ChartLiveViewModel : Notifier
             new Axis
             {
                 Name = "Сигнал",
-                MaxLimit = 1.0,
+                MinLimit = 0.0,
+                MaxLimit = 1.5,
             }
         };
     }

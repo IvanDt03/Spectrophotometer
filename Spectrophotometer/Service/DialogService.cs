@@ -3,6 +3,7 @@ using OxyPlot;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Spectrophotometer.Models;
 
 namespace Spectrophotometer.Service;
 
@@ -13,7 +14,7 @@ public class DialogService : IDialogService
         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
-    public void PrintChart(PlotModel model)
+    public void PrintChart(PlotModel model, RatioMonomers ratio, MixtureMonomers mixture)
     {
         var printDialog = new PrintDialog();
         printDialog.PrintTicket.PageOrientation = System.Printing.PageOrientation.Landscape;
@@ -30,11 +31,30 @@ public class DialogService : IDialogService
         };
 
         var originalPadding = model.Padding;
+        var originalFontSizeAxisLabel = model.Axes[0].FontSize;
+        var originalFontSizeAxisTitle = model.Axes[0].TitleFontSize;
+
         model.Padding = new OxyThickness(30);
+        model.Axes[0].FontSize = 16;
+        model.Axes[1].FontSize = 16;
+        model.Axes[0].TitleFontSize = 20;
+        model.Axes[1].TitleFontSize = 20;
+        model.Axes[0].Title = "Длина волны, нм";
+        model.Axes[1].Title = "Сигнал";
+
+        if (ratio != null) 
+            model.Title = $"{mixture.NameFirstMonomer} - {ratio.VolumeFirstMonomer} мл; {mixture.NameSecondMonomer} - {ratio.VolumeSecondMonomer} мл";
 
         var bitmap = exporter.ExportToBitmap(model);
 
         model.Padding = originalPadding;
+        model.Axes[0].FontSize = originalFontSizeAxisLabel;
+        model.Axes[1].FontSize = originalFontSizeAxisLabel;
+        model.Axes[0].TitleFontSize = originalFontSizeAxisTitle;
+        model.Axes[1].TitleFontSize = originalFontSizeAxisTitle;
+        model.Title = string.Empty;
+        model.Axes[0].Title = string.Empty;
+        model.Axes[1].Title = string.Empty;
 
         var image = new System.Windows.Controls.Image
         {
