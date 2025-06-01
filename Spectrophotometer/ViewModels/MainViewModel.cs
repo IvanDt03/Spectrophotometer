@@ -81,6 +81,7 @@ public class MainViewModel : Notifier
         set 
         {
             var result = _dataService.LoadUnitMixture(value);
+
             if (result.IsSuccess)
                 value.ListRatio = new ObservableCollection<RatioMonomers>(result.Data);
             else
@@ -130,7 +131,7 @@ public class MainViewModel : Notifier
     public double MolarFraction
     {
         get { return _molarFraction; }
-        set { SetValue(ref _molarFraction, value, nameof(MolarFraction)); }
+        private set { SetValue(ref _molarFraction, value, nameof(MolarFraction)); }
     }
 
     public string SignalCalibration
@@ -243,7 +244,7 @@ public class MainViewModel : Notifier
         {
             string input = SignalCalibration.Replace(',', '.');
 
-            if (double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
+            if (double.TryParse(input, CultureInfo.InvariantCulture, out double result))
                 MolarFraction = (result - SelectedMixture.FreeFactor) / SelectedMixture.AngularFactor;
         }
     }

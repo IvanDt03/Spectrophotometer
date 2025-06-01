@@ -25,7 +25,6 @@ public class ChartOxyViewModel : Notifier
             Position = AxisPosition.Bottom,
             FontSize = 6,
             IsPanEnabled = false,
-            //IsZoomEnabled = false,
         };
 
         _yAxis = new LinearAxis
@@ -35,7 +34,6 @@ public class ChartOxyViewModel : Notifier
             Minimum = 0.0,
             Maximum = 1.5,
             IsPanEnabled = false,
-            //IsZoomEnabled = false,
         };
 
         _model.Series.Add(_series);

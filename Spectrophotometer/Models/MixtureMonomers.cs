@@ -45,7 +45,7 @@ public class MixtureMonomers : Notifier
     public string Title
     {
         get { return _title; }
-        private set { SetValue(ref _title, value, nameof(Title)); }
+        set { SetValue(ref _title, value, nameof(Title)); }
     }
 
     public string NameFirstMonomer
@@ -70,6 +70,6 @@ public class MixtureMonomers : Notifier
     public double LambdaMax { get; }
     public double LambdaA { get; }
     public double WFactor { get; }
-    public double FreeFactor { get; set; }
-    public double AngularFactor { get; set; }
+    public double FreeFactor { get; }
+    public double AngularFactor { get; }
 }

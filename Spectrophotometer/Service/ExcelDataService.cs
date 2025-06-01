@@ -22,9 +22,9 @@ public class ExcelDataService : IDataService
             
             foreach(var ws in wb.Worksheets)
             {
+                string title = ws.Name;
                 string nameFirstMonomer = ws.Cell("Q17").GetString();
                 string nameSecondMonomer = ws.Cell("Q18").GetString();
-                string title = ws.Name;
                 double lambdaMin = ws.Cell("N24").GetDouble();
                 double lambdaMax = ws.Cell("O24").GetDouble();
                 double lambdaA = ws.Cell("P24").GetDouble();
@@ -33,7 +33,11 @@ public class ExcelDataService : IDataService
                 double angularFactor = ws.Cell("O31").GetDouble();
                 var dataForCalibration = GetDataForCalibration(ws);
 
-                result.Add(new MixtureMonomers(title, nameFirstMonomer, nameSecondMonomer, lambdaMin, lambdaMax, lambdaA, wFactor, freeFactor, angularFactor, dataForCalibration));
+                var mixture = new MixtureMonomers(title, nameFirstMonomer, nameSecondMonomer, 
+                    lambdaMin, lambdaMax, lambdaA, wFactor, 
+                    freeFactor, angularFactor, dataForCalibration);
+
+                result.Add(mixture);
             }
             return LoadResult<List<MixtureMonomers>>.Seccess(result);
         }

@@ -51,19 +51,19 @@ public class ChartCalibrationViewModel : Notifier
     public ObservableCollection<ISeries> Series
     {
         get { return _series; }
-        set { SetValue(ref _series, value, nameof(Series)); }
+        private set { SetValue(ref _series, value, nameof(Series)); }
     }
 
     public ObservableCollection<ICartesianAxis> XAxis
     {
         get { return _xAxis; }
-        set { SetValue(ref _xAxis, value, nameof(XAxis)); }
+        private set { SetValue(ref _xAxis, value, nameof(XAxis)); }
     }
 
     public ObservableCollection<ICartesianAxis> YAxis
     {
         get { return _yAxis; }
-        set { SetValue(ref _yAxis, value, nameof(YAxis)); }
+        private set { SetValue(ref _yAxis, value, nameof(YAxis)); }
     }
 
     public void UpdateChart(IEnumerable<DataPoint> data)
