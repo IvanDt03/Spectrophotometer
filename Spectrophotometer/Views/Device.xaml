@@ -43,14 +43,14 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <Rectangle Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Width="1" Fill="Black"/>
-                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Mixture.NameFirstMonomer}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Mixture.NameSecondMonomer}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Mixture.NameFirstMonomer}"
+                               TextWrapping="Wrap"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Mixture.NameSecondMonomer}"
+                               TextWrapping="Wrap"/>
                     <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Width="50" Height="40" Background="{x:Null}" BorderBrush="Black" 
-                             TextAlignment="Center" Text="{Binding VolumeFirstMonomer, StringFormat={}{0:0.##}}" IsReadOnly="True" Focusable="False" FontWeight="Bold"
-                             TextWrapping="Wrap"/>
+                             TextAlignment="Center" Text="{Binding VolumeFirstMonomer, StringFormat={}{0:0.##}}" IsReadOnly="True" Focusable="False" FontWeight="Bold"/>
                     <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Width="50" Height="40" Background="{x:Null}" BorderBrush="Black" 
-                             TextAlignment="Center" Text="{Binding VolumeSecondMonomer, StringFormat={}{0:0.##}}" IsReadOnly="True" Focusable="False" FontWeight="Bold"
-                             TextWrapping="Wrap"/>
+                             TextAlignment="Center" Text="{Binding VolumeSecondMonomer, StringFormat={}{0:0.##}}" IsReadOnly="True" Focusable="False" FontWeight="Bold"/>
                 </Grid>
             </Border>
             <Border Canvas.Left="165" Canvas.Top="60" Width="270" Height="130" Background="DarkSeaGreen" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
@@ -71,6 +71,8 @@
                             Command="{Binding ResetCommand}" FontSize="10">Сброс</Button>
                 </Grid>
             </Border>
+            <TextBlock Canvas.Left="85" Canvas.Top="230" Text="Минимальная длина волны" TextWrapping="Wrap" Width="100" TextAlignment="Center"/>
+            <TextBlock Canvas.Left="420" Canvas.Top="230" Text="Максимальная длина волны" TextWrapping="Wrap" Width="100" TextAlignment="Center"/>
             <local:KnobLambda Canvas.Left="70" Canvas.Top="275" ValueLambda="{Binding MinLambda}"></local:KnobLambda>
             <local:KnobLambda Canvas.Left="405" Canvas.Top="275" ValueLambda="{Binding MaxLambda}"></local:KnobLambda>
         </Canvas>
