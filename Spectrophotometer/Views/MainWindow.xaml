@@ -11,7 +11,8 @@
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
-        Title="MainWindow" Height="1000" Width="1600" Icon="/Content/Icon2.ico">
+        Title="Спектрофотометр" Height="1000" Width="1600" Icon="/Content/Icon2.ico" 
+        WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <vm:MainViewModel></vm:MainViewModel>
@@ -94,7 +95,7 @@
 
                     <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Градуировочный график" 
                                Style="{StaticResource TextBlockThemeStyle}" 
-                               Margin="0 0 0 0"/>
+                               Margin="0 0 0 10"/>
                     <lvc:CartesianChart Grid.Row="1" Grid.ColumnSpan="2"
                                         Series="{Binding ChartCalibration.Series}"
                                         XAxes="{Binding ChartCalibration.XAxis}"
@@ -124,7 +125,7 @@
                     <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Рассчитать"
                             Command="{Binding CalculateCommand}" HorizontalAlignment="Center"
                             CommandParameter="{Binding ElementName=xfactor, Path=Text}"
-                            Style="{StaticResource BtnStyle}" />
+                            Style="{StaticResource BtnStyle}" Width="200" Height="70"/>
                     <Label Grid.Row="5" Grid.Column="0" BorderBrush="{x:Null}" HorizontalAlignment="Left"
                            Margin="20" Height="40">
                         <TextBlock>
