@@ -12,7 +12,6 @@
   <ItemGroup>
     <None Remove="Content\Data.xlsx" />
     <None Remove="Content\Icon2.ico" />
-    <None Remove="Content\PrintImage.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,7 +34,6 @@
 
   <ItemGroup>
     <Resource Include="Content\Icon2.ico" />
-    <Resource Include="Content\PrintImage.png" />
   </ItemGroup>
 
 </Project>
