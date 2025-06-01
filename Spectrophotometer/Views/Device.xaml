@@ -44,9 +44,9 @@
                     </Grid.RowDefinitions>
                     <Rectangle Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Width="1" Fill="Black"/>
                     <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Mixture.NameFirstMonomer}"
-                               TextWrapping="Wrap"/>
+                               TextWrapping="Wrap" TextAlignment="Center"/>
                     <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Mixture.NameSecondMonomer}"
-                               TextWrapping="Wrap"/>
+                               TextWrapping="Wrap" TextAlignment="Center"/>
                     <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Width="50" Height="40" Background="{x:Null}" BorderBrush="Black" 
                              TextAlignment="Center" Text="{Binding VolumeFirstMonomer, StringFormat={}{0:0.##}}" IsReadOnly="True" Focusable="False" FontWeight="Bold"/>
                     <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Width="50" Height="40" Background="{x:Null}" BorderBrush="Black" 
