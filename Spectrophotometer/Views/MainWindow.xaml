@@ -12,7 +12,7 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
         Title="Спектрофотометр" Height="1000" Width="1600" Icon="/Content/Icon2.ico" 
-        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <vm:MainViewModel></vm:MainViewModel>
