@@ -69,7 +69,7 @@
                         CommandParameter="{Binding ElementName=cmbRatio, Path=SelectedItem}"
                         Style="{StaticResource BtnStyle}" Margin="20 20 0 10"></Button>
             </StackPanel>
-            <view:Device></view:Device>
+            <view:Device Margin="40"></view:Device>
             <Button Command="{Binding PrintCommand}" Style="{StaticResource BtnStyle}" Height="55">🖶 Версия для печати</Button>
         </StackPanel>
         <TabControl Grid.Row="1" Grid.Column="0" FontSize="18">
