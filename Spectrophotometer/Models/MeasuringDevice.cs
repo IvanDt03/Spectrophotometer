@@ -29,9 +29,10 @@ public class MeasuringDevice : Notifier
         {
             IsRunning = false;
             _timer.Stop();
+            return;
         }
 
-        var lambda = ++_currentMinLambdaUI;
+        var lambda = _currentMinLambdaUI++;
         var signal = A_Factor * Math.Pow(1 + Math.Pow(lambda - _currentMixture.LambdaA, 2) / Math.Pow(_currentMixture.WFactor, 2), -1);
 
         CurrentPoint = new DataPoint(lambda, signal);
