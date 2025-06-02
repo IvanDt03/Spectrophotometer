@@ -118,8 +118,7 @@
                                Style="{StaticResource TextBlockThemeStyle}"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" 
                                Text="Введите значение А на максимуме кривой:"
-                               Style="{StaticResource TextBlockCaptionStyle}"
-                               VerticalAlignment="Center"/>
+                               Style="{StaticResource TextBlockCaptionStyle}"/>
                     <TextBox Grid.Row="3" Grid.Column="1" x:Name="signal" Height="40"
                                 HorizontalAlignment="Stretch" Margin="20" FontSize="18" IsTabStop="False">
                         <TextBox.Text>
@@ -140,7 +139,6 @@
                                 Margin="20 0 0 0"/>
 
                     <TextBlock Grid.Row="4" Grid.Column="0" 
-                               VerticalAlignment="Center"
                                Style="{StaticResource TextBlockCaptionStyle}">
                         <Run Text="Мольная доля для мономера"/>
                         <Run Text="{Binding SelectedMixture.NameFirstMonomer, StringFormat='&quot;{0}&quot;'}"
